@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using PB = com.alicloud.openservices.tablestore.core.protocol;
-using Google.ProtocolBuffers;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
+using Google.Protobuf;
 
 namespace Aliyun.OTS.DataModel.Filter
 {
@@ -92,11 +92,11 @@ namespace Aliyun.OTS.DataModel.Filter
             switch (type)
             {
                 case LogicOperator.NOT:
-                    return PB.LogicalOperator.LO_NOT;
+                    return PB.LogicalOperator.LoNot;
                 case LogicOperator.AND:
-                    return PB.LogicalOperator.LO_AND;
+                    return PB.LogicalOperator.LoAnd;
                 case LogicOperator.OR:
-                    return PB.LogicalOperator.LO_OR;
+                    return PB.LogicalOperator.LoOr;
                 default:
                     throw new ArgumentException("Unknown logic operation type: " + type);
             }
@@ -115,11 +115,11 @@ namespace Aliyun.OTS.DataModel.Filter
             switch (type)
             {
                 case FilterType.COMPOSITE_COLUMN_VALUE_FILTER:
-                    return PB.FilterType.FT_COMPOSITE_COLUMN_VALUE;
+                    return PB.FilterType.FtCompositeColumnValue;
                 case FilterType.SINGLE_COLUMN_VALUE_FILTER:
-                    return PB.FilterType.FT_SINGLE_COLUMN_VALUE;
+                    return PB.FilterType.FtSingleColumnValue;
                 case FilterType.COLUMN_PAGINATION_FILTER:
-                    return PB.FilterType.FT_COLUMN_PAGINATION;
+                    return PB.FilterType.FtColumnPagination;
                 default:
                     throw new ArgumentException("Unknown filter type: " + type);
             }

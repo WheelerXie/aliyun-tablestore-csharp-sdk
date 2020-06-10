@@ -1,5 +1,5 @@
 ﻿using System;
-using com.alicloud.openservices.tablestore.core.protocol;
+using Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 
 namespace Aliyun.OTS.ProtoBuffer
 {

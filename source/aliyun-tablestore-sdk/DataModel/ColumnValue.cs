@@ -10,7 +10,7 @@
  */
 
 using System;
-using com.alicloud.openservices.tablestore.core.protocol;
+using Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 using System.IO;
 using Aliyun.OTS.Util;
 

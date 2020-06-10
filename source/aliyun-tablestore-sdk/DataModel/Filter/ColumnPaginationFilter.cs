@@ -1,6 +1,6 @@
 ﻿using System;
-using Google.ProtocolBuffers;
-using PB = com.alicloud.openservices.tablestore.core.protocol;
+using Google.Protobuf;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 
 namespace Aliyun.OTS.DataModel.Filter
 {

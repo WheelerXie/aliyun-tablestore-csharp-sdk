@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 using System.IO;
-using PB = com.alicloud.openservices.tablestore.core.protocol;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 using Aliyun.OTS.DataModel.Search;
-using com.alicloud.openservices.tablestore.core.protocol;
+using Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 
 namespace Aliyun.OTS.Handler
 {
@@ -73,76 +73,65 @@ namespace Aliyun.OTS.Handler
             }
         }
 
-        private Response.OTSResponse DecodeCreateTable(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeCreateTable(byte[] body, out IMessage message)
         {
             var response = new Response.CreateTableResponse();
-            var builder = PB.CreateTableResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.CreateTableResponse();
+            message.MergeFrom(body);
             return response;
         }
 
-        private Response.OTSResponse DecodeDeleteTable(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeDeleteTable(byte[] body, out IMessage message)
         {
             var response = new Response.DeleteTableResponse();
-            var builder = PB.DeleteTableResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.DeleteTableResponse();
+            message.MergeFrom(body);
             return response;
         }
 
-        private Response.OTSResponse DecodeUpdateTable(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeUpdateTable(byte[] body, out IMessage message)
         {
-            var builder = PB.UpdateTableResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.UpdateTableResponse();
+            message.MergeFrom(body);
             var response = new Response.UpdateTableResponse(
                 ParseReservedThroughputDetails(message.ReservedThroughputDetails)
             );
-            _message = message;
             return response;
         }
 
-        private Response.OTSResponse DecodeListTable(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeListTable(byte[] body, out IMessage message)
         {
             var response = new Response.ListTableResponse
             {
                 TableNames = new List<string>()
             };
 
-            var builder = PB.ListTableResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.ListTableResponse();
+            message.MergeFrom(body);
 
             for (int i = 0; i < message.TableNamesCount; i++)
             {
                 response.TableNames.Add(message.GetTableNames(i));
             }
-            _message = message;
             return response;
         }
 
-        private Response.OTSResponse DecodeDescribeTable(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeDescribeTable(byte[] body, out IMessage message)
         {
             var response = new Response.DescribeTableResponse();
-            var builder = PB.DescribeTableResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.DescribeTableResponse();
+            message.MergeFrom(body);
             response.TableMeta = ParseTableMeta(message.TableMeta);
             response.ReservedThroughputDetails = ParseReservedThroughputDetails(message.ReservedThroughputDetails);
             response.StreamDetails = ParseStreamDetails(message.StreamDetails);
             response.TableOptions = ParseTableOptions(message.TableOptions);
-            _message = message;
             return response;
         }
 
-        private Response.OTSResponse DecodePutRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodePutRow(byte[] body, out IMessage message)
         {
-            var builder = PB.PutRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.PutRowResponse();
+            message.MergeFrom(body);
 
             DataModel.Row row = null;
             if (message.HasRow && !message.Row.IsEmpty)
@@ -158,15 +147,13 @@ namespace Aliyun.OTS.Handler
                 ParseCapacityUnit(message.Consumed.CapacityUnit),
                 row
             );
-            _message = message;
             return response;
         }
 
-        private Response.OTSResponse DecodeGetRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeGetRow(byte[] body, out IMessage message)
         {
-            var builder = PB.GetRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.GetRowResponse();
+            message.MergeFrom(body);
 
             DataModel.Row row = null;
 
@@ -187,15 +174,15 @@ namespace Aliyun.OTS.Handler
                 row
             );
 
-            _message = message;
+
             return response;
         }
 
-        private Response.OTSResponse DecodeUpdateRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeUpdateRow(byte[] body, out IMessage message)
         {
-            var builder = PB.UpdateRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.UpdateRowResponse();
+            message.MergeFrom(body);
+
 
             DataModel.Row row = null;
 
@@ -212,17 +199,17 @@ namespace Aliyun.OTS.Handler
                 ParseCapacityUnit(message.Consumed.CapacityUnit),
                 row
             );
-            _message = message;
+
             return response;
         }
 
 
 
-        private Response.OTSResponse DecodeDeleteRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeDeleteRow(byte[] body, out IMessage message)
         {
-            var builder = PB.DeleteRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.DeleteRowResponse();
+            message.MergeFrom(body);
+
 
             DataModel.Row row = null;
             if (message.HasRow && !message.Row.IsEmpty)
@@ -238,7 +225,7 @@ namespace Aliyun.OTS.Handler
                 ParseCapacityUnit(message.Consumed.CapacityUnit),
                 row
             );
-            _message = message;
+
             return response;
         }
 
@@ -254,11 +241,11 @@ namespace Aliyun.OTS.Handler
             return PB.PlainBufferConversion.ToRow(rows[0]) as DataModel.Row;
         }
 
-        private Response.OTSResponse DecodeBatchWriteRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeBatchWriteRow(byte[] body, out IMessage message)
         {
-            var builder = PB.BatchWriteRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.BatchWriteRowResponse();
+            message.MergeFrom(body);
+
 
             var response = new Response.BatchWriteRowResponse();
 
@@ -268,30 +255,30 @@ namespace Aliyun.OTS.Handler
                 response.TableRespones.Add(table.TableName, item);
             }
 
-            _message = message;
+
             return response;
         }
 
-        private Response.OTSResponse DecodeBatchGetRow(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeBatchGetRow(byte[] body, out IMessage message)
         {
-            var builder = PB.BatchGetRowResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.BatchGetRowResponse();
+            message.MergeFrom(body);
+
             var response = new Response.BatchGetRowResponse();
 
             foreach (var table in message.TablesList)
             {
                 response.Add(table.TableName, ParseTableInBatchGetRowResponse(table));
             }
-            _message = message;
+
             return response;
         }
 
-        private Response.OTSResponse DecodeGetRange(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeGetRange(byte[] body, out IMessage message)
         {
-            var builder = PB.GetRangeResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.GetRangeResponse();
+            message.MergeFrom(body);
+
             var response = new Response.GetRangeResponse
             {
                 ConsumedCapacityUnit = ParseCapacityUnit(message.Consumed.CapacityUnit)
@@ -340,20 +327,20 @@ namespace Aliyun.OTS.Handler
                 response.NextToken = message.NextToken.ToByteArray();
             }
 
-            _message = message;
+
             return response;
         }
 
-        private Response.OTSResponse DecodeListSearchIndex(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeListSearchIndex(byte[] body, out IMessage message)
         {
             var response = new Response.ListSearchIndexResponse
             {
                 IndexInfos = new List<SearchIndexInfo>()
             };
 
-            var builder = PB.ListSearchIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.ListSearchIndexResponse();
+            message.MergeFrom(body);
+
 
             for (int i = 0; i < message.IndicesCount; i++)
             {
@@ -363,37 +350,37 @@ namespace Aliyun.OTS.Handler
                 searchIndexInfo.IndexName = indexInfo.IndexName;
                 response.IndexInfos.Add(searchIndexInfo);
             }
-            _message = message;
+
             return response;
         }
 
-        private Response.OTSResponse DecodeCreateSearchIndex(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeCreateSearchIndex(byte[] body, out IMessage message)
         {
             var response = new Response.CreateSearchIndexResponse();
-            var builder = PB.CreateSearchIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.CreateSearchIndexResponse();
+            message.MergeFrom(body);
+
+
             return response;
         }
 
-        private Response.OTSResponse DecodeDeleteSearchIndex(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeDeleteSearchIndex(byte[] body, out IMessage message)
         {
             var response = new Response.DeleteSearchIndexResponse();
-            var builder = PB.DeleteSearchIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.DeleteSearchIndexResponse();
+            message.MergeFrom(body);
+
+
             return response;
         }
 
-        private Response.OTSResponse DecodeSearch(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeSearch(byte[] body, out IMessage message)
         {
             var response = new Response.SearchResponse();
-            var builder = PB.SearchResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.SearchResponse();
+            message.MergeFrom(body);
+
+
 
             response.TotalCount = message.TotalHits;
             response.IsAllSuccess = message.IsAllSucceeded;
@@ -418,15 +405,15 @@ namespace Aliyun.OTS.Handler
             return response;
         }
 
-        private Response.OTSResponse DecodeDescribeSearchIndex(byte[] body, out IMessage _message)
+        private Response.OTSResponse DecodeDescribeSearchIndex(byte[] body, out IMessage message)
         {
             var response = new Response.DescribeSearchIndexResponse();
-            var builder = PB.DescribeSearchIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
+            message = new PB.DescribeSearchIndexResponse();
+            message.MergeFrom(body);
+
             response.Schema = ParseIndexSchema(message.Schema);
             response.SyncStat = ParseSyncStat(message.SyncStat);
-            _message = message;
+
             return response;
         }
 
@@ -549,7 +536,7 @@ namespace Aliyun.OTS.Handler
             {
                 ret.RoutingFields.Add(item);
             }
-            
+
             return ret;
         }
 
@@ -749,23 +736,23 @@ namespace Aliyun.OTS.Handler
             return ret;
         }
 
-        private Response.CreateGlobalIndexResponse DecodeCreateGlobalIndex(byte[] body, out IMessage _message)
+        private Response.CreateGlobalIndexResponse DecodeCreateGlobalIndex(byte[] body, out IMessage message)
         {
             var response = new Response.CreateGlobalIndexResponse();
-            var builder = PB.CreateIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.CreateIndexResponse();
+            message.MergeFrom(body);
+
+
             return response;
         }
 
-        private Response.DeleteGlobalIndexResponse DecodeDeleteGlobalIndex(byte[] body, out IMessage _message)
+        private Response.DeleteGlobalIndexResponse DecodeDeleteGlobalIndex(byte[] body, out IMessage message)
         {
             var response = new Response.DeleteGlobalIndexResponse();
-            var builder = PB.DropIndexResponse.CreateBuilder();
-            builder.MergeFrom(body);
-            var message = builder.Build();
-            _message = message;
+            message = new PB.DropIndexResponse();
+            message.MergeFrom(body);
+
+
             return response;
         }
     }

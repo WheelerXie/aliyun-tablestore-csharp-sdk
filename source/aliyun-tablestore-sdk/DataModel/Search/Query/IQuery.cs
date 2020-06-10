@@ -1,4 +1,4 @@
-﻿using Google.ProtocolBuffers;
+﻿using Google.Protobuf;
 
 namespace Aliyun.OTS.DataModel.Search.Query
 {

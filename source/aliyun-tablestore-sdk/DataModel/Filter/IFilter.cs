@@ -1,5 +1,5 @@
 ﻿using System;
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 
 namespace Aliyun.OTS.DataModel.Filter
 {

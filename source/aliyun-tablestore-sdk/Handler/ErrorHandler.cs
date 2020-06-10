@@ -10,7 +10,7 @@
  */
 
 
-using PB = com.alicloud.openservices.tablestore.core.protocol;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 
 namespace Aliyun.OTS.Handler
 {
@@ -54,9 +54,9 @@ namespace Aliyun.OTS.Handler
                 var message = builder.Build();
                 errorCode = message.Code;
                 errorMessage = message.Message;
-            } catch (Google.ProtocolBuffers.InvalidProtocolBufferException) {
+            } catch (Google.Protobuf.InvalidProtocolBufferException) {
                 throwOTSServerException(context);
-            } catch (Google.ProtocolBuffers.UninitializedMessageException) {
+            } catch (Google.Protobuf.UninitializedMessageException) {
                 throwOTSServerException(context);
             }
             

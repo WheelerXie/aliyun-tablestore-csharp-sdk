@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Google.ProtocolBuffers;
-using com.alicloud.openservices.tablestore.core.protocol;
+using Google.Protobuf;
+using Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 
 namespace Aliyun.OTS.DataModel.Search.Query
 {

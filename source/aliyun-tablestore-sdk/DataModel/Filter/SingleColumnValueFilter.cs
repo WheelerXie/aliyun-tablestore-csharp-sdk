@@ -1,7 +1,8 @@
-﻿using System.IO;
-using Google.ProtocolBuffers;
+﻿using Google.Protobuf;
 using System;
-using PB = com.alicloud.openservices.tablestore.core.protocol;
+using System.IO;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
+
 namespace Aliyun.OTS.DataModel.Filter
 {
     /// <summary>
@@ -74,17 +75,17 @@ namespace Aliyun.OTS.DataModel.Filter
         {
             switch (compareOperator) {
                 case CompareOperator.EQUAL:
-                    return PB.ComparatorType.CT_EQUAL;
+                    return PB.ComparatorType.CtEqual;
                 case CompareOperator.NOT_EQUAL:
-                    return PB.ComparatorType.CT_NOT_EQUAL;
+                    return PB.ComparatorType.CtNotEqual;
                 case CompareOperator.GREATER_THAN:
-                    return PB.ComparatorType.CT_GREATER_THAN;
+                    return PB.ComparatorType.CtGreaterThan;
                 case CompareOperator.GREATER_EQUAL:
-                    return PB.ComparatorType.CT_GREATER_EQUAL;
+                    return PB.ComparatorType.CtGreaterEqual;
                 case CompareOperator.LESS_THAN:
-                    return PB.ComparatorType.CT_LESS_THAN;
+                    return PB.ComparatorType.CtLessThan;
                 case CompareOperator.LESS_EQUAL:
-                    return PB.ComparatorType.CT_LESS_EQUAL;
+                    return PB.ComparatorType.CtLessEqual;
                 default:
                     throw new ArgumentException("Unknown compare operator: " + compareOperator);
             }

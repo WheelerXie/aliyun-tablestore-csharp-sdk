@@ -11,11 +11,11 @@
 
 using System;
 using System.Collections.Generic;
-using PB = com.alicloud.openservices.tablestore.core.protocol;
-using Google.ProtocolBuffers;
+using PB = Com.Alicloud.Openservices.Tablestore.Core.Protocol;
+using Google.Protobuf;
 using Aliyun.OTS.DataModel.Filter;
 using Aliyun.OTS.DataModel.ConditionalUpdate;
-using com.alicloud.openservices.tablestore.core.protocol;
+using Com.Alicloud.Openservices.Tablestore.Core.Protocol;
 using Aliyun.OTS.ProtoBuffer;
 
 namespace Aliyun.OTS.Handler

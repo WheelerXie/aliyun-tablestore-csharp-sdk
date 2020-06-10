@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using Google.ProtocolBuffers;
+﻿using System.Collections.Generic;
+using Google.Protobuf;
 using Aliyun.OTS.DataModel.Filter;
 
 namespace Aliyun.OTS.DataModel.ConditionalUpdate

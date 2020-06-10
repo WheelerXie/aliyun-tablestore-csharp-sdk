@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 using Aliyun.OTS.DataModel;
 
 namespace com.alicloud.openservices.tablestore.core.protocol

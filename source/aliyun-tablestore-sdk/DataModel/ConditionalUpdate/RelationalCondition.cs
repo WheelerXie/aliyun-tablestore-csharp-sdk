@@ -1,4 +1,4 @@
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 using Aliyun.OTS.DataModel.Filter;
 
 namespace Aliyun.OTS.DataModel.ConditionalUpdate

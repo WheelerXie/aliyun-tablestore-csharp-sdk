@@ -1,7 +1,7 @@
 ﻿using System;
 using Aliyun.OTS.DataModel.Search.Query;
 using Aliyun.OTS.ProtoBuffer;
-using Google.ProtocolBuffers;
+using Google.Protobuf;
 
 namespace com.alicloud.openservices.tablestore.core.protocol
 {
